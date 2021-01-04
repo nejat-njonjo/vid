@@ -11,6 +11,8 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "simple-peer": "^9.9.3",
+    "socket.io": "^3.1.1"
   }
 }
