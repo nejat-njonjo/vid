@@ -1,5 +1,9 @@
 async function getUsers(req, res) {
+  console.log(req.headers)
 
+  res.render('users', {
+    title: 'Users'
+  })
 }
 
 
