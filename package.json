@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "watch": "npx watchify ./public/js/main.js -o ./public/js/bundle.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -14,5 +15,8 @@
     "morgan": "~1.9.1",
     "simple-peer": "^9.9.3",
     "socket.io": "^3.1.1"
+  },
+  "devDependencies": {
+    "watchify": "^4.0.0"
   }
 }
