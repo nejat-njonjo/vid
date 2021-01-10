@@ -2,10 +2,24 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/css/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div class="container-fluid">
+      <div class="row h-100 w-100">
+        <div class="col-12 col-sm-6 d-flex justify-content-center">
+          <div class="embed-responsive embed-responsive-16by9">
+            <video muted class="embed-responsive-item"></video>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 d-flex justify-content-center">
+          <div class="embed-responsive embed-responsive-16by9">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/bundle.js"></script>
   </body>
 </html>
