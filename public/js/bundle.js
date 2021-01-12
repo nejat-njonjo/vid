@@ -8220,8 +8220,43 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
     }
 
     function makePeer() {
-      
+      client.gotAnswer = false
+      const initiator = initializePeer('init')
+      initiator.on('signal', data => {
+        if (!client.gotAnswer) {
+          socket.emit('Offer', data)
+        }
+      })
+      client.peer = initiator
     }
+
+    function FrontAnswer(offer) {
+      const peer = initializePeer('notInit')
+      peer.on('signal', data => {
+        socket.emit('Answer', data)
+      })
+      client.peer = peer
+    }
+
+    function signalAnswer(answer) {
+      client.gotAnswer = true
+      let peer = client.peer
+      peer.signal(answer)
+    }
+
+    function CreateVideo(stream) {
+      const embedVideo = document.createElement('video')
+      embedVideo.id = 'peerVideo'
+      embedVideo.srcObject = stream
+      embedVideo.classList.add('embed-reponsive-item')
+      document.querySelector('#peerDiv').appendChild(embedVideo)
+    }
+
+    function sessionActive() {
+      document.write('User is on another call')
+    }
+
+    
   })
   .catch(error => {
     document.write(error)
