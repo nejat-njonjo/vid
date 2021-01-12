@@ -43,7 +43,7 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
       client.peer = initiator
     }
 
-    function FrontAnswer(offer) {
+    function frontAnswer(offer) {
       const peer = initializePeer('notInit')
       peer.on('signal', data => {
         socket.emit('Answer', data)
@@ -69,7 +69,10 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
       document.write('User is on another call')
     }
 
-    
+    socket.on('BackOffer', frontAnswer)
+    socket.on('BackAnswer', signalAnswer)
+    socket.on('SessionActive', sessionActive)
+    socket.on('CreatePeer', makePeer)
   })
   .catch(error => {
     document.write(error)
