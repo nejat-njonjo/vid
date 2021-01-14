@@ -1,5 +1,5 @@
 const Peer = require('simple-peer')
-const socket = io()
+const socket = io('http://localhost:3000')
 const video = document.querySelector('video')
 
 let client = {}
@@ -62,7 +62,8 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
       embedVideo.id = 'peerVideo'
       embedVideo.srcObject = stream
       embedVideo.classList.add('embed-reponsive-item')
-      document.querySelector('#peerDiv').appendChild(embedVideo)
+      document.querySelector('#peerVideo').appendChild(embedVideo)
+      embedVideo.play()
     }
 
     function sessionActive() {
@@ -70,7 +71,9 @@ navigator.mediaDevices.getUserMedia({video: true, audio: true})
     }
 
     socket.on('BackOffer', frontAnswer)
-    socket.on('BackAnswer', signalAnswer)
+    socket.on('BackAnswer', data => {
+      console.log(data)
+    })
     socket.on('SessionActive', sessionActive)
     socket.on('CreatePeer', makePeer)
   })
