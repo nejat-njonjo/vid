@@ -1,1 +1,7 @@
 @import url('./theme.min.css');
+
+#outgoing {
+  width: 600px;
+  word-wrap: break-word;
+  white-space: normal;
+}
