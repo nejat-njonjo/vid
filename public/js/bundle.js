@@ -12270,15 +12270,88 @@ module.exports = yeast;
 },{}],75:[function(require,module,exports){
 const SimplePeer = require('simple-peer')
 const io = require('socket.io-client')
-const video = document.querySelector('video')
-const messages = []
 const socket = io('http://localhost:3000')
+const video = document.querySelector('video')
 
-socket.emit('sen', {
-  name: 'Jame', age: 30
-})
+const client = {}
 
-socket.on('much', data => {
-  console.log(data)
-})
+function grantedMedia(stream) {
+  socket.emit('newClient')
+  video.srcObject = stream
+  video.play()
+
+  function initPeer(type) {
+    const peer = new SimplePeer({
+      initiator: type == 'init' ? true : false,
+      stream,
+      trickle: false
+    })
+
+    peer.on('stream', stream => {
+      renderVideo(stream)
+    })
+
+    peer.on('close', () => {
+      document.getElementById('incomingVideo').remove()
+      peer.destroy()
+    })
+
+    return peer
+  }
+
+  function createPeer() {
+    client.gotAnswer = false
+    const peer = initPeer('init')
+
+    peer.on('signal', data => {
+      if (!client.gotAnswer) {
+        socket.emit('offer', data)
+      }
+    })
+
+    client.peer = peer
+  }
+
+  function frontAnswer(offer) {
+    const peer = initPeer('notInit')
+    peer.on('signal', data => {
+      socket.emit('answer', data)
+    })
+    peer.signal(offer)
+  }
+
+  function signalAnswer(answer) {
+    client.gotAnswer = truevideo
+    video
+    video
+    const peer = client.peer
+    peer.signal(answer)
+  }
+
+  function renderVideo(stream) {
+    const incomingVideo = document.createElement('video')
+    incomingVideo.id = 'incomingVideo'
+    incomingVideo.srcObject = stream
+    incomingVideo.setAttribute('class', 'embed-responsive-item')
+    incomingVideo.play()
+    document.querySelector('#incoming').appendChild(incomingVideo)
+  }
+
+  function sessionActive() {
+    document.write('User is busy')
+  }
+
+  socket.on('backOffer', frontAnswer)
+  socket.on('backAnswer', signalAnswer)
+  socket.on('sessionActive', sessionActive)
+  socket.on('createPeer', createPeer)
+}
+
+navigator.mediaDevices.getUserMedia({
+  video: true,
+  audio: true
+}).then(grantedMedia).catch(err => {console.log(err)})
+
+
+
 },{"simple-peer":53,"socket.io-client":57}]},{},[75]);
