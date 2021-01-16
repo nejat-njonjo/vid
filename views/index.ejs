@@ -6,13 +6,12 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div id="output"></div>
-      <form>
-        <textarea id="incoming"></textarea>
-        <button type="submit">Submit</button>
-      </form>
-
-      <pre id="outgoing"></pre>
+      <div class="row h-100 w-100">
+        <div class="embed-responsive embed-responsive-16by9">
+          <video id="outgoing" class="embed-responsive-item"  muted></video>
+        </div>
+        <div id="incoming" class="embed-responsive embed-responsive-16by9"></div>
+      </div>
     </div>
 
     <script src="/js/bundle.js"></script>
