@@ -6,21 +6,15 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row h-100 w-100">
-        <div class="col-12 col-sm-6 d-flex justify-content-center">
-          <div class="embed-responsive embed-responsive-16by9">
-            <video muted class="embed-responsive-item"></video>
-          </div>
-        </div>
+      <div id="output"></div>
+      <form>
+        <textarea id="incoming"></textarea>
+        <button type="submit">Submit</button>
+      </form>
 
-        <div class="col-12 col-sm-6 d-flex justify-content-center">
-          <div id="peerVideo" class="embed-responsive embed-responsive-16by9">
-          </div>
-        </div>
-      </div>
+      <pre id="outgoing"></pre>
     </div>
 
-    <script src="/socket.io.min.js"></script>
     <script src="/js/bundle.js"></script>
   </body>
 </html>
