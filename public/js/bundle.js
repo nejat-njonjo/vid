@@ -12333,8 +12333,8 @@ function grantedMedia(stream) {
     incomingVideo.id = 'incomingVideo'
     incomingVideo.srcObject = stream
     incomingVideo.setAttribute('class', 'embed-responsive-item')
-    incomingVideo.play()
     document.querySelector('#incoming').appendChild(incomingVideo)
+    incomingVideo.play()
   }
 
   function sessionActive() {
