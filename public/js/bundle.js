@@ -12283,7 +12283,7 @@ function grantedMedia(stream) {
   function initPeer(type) {
     const peer = new SimplePeer({
       initiator: type == 'init' ? true : false,
-      stream,
+      stream: stream,
       trickle: false
     })
 
@@ -12321,9 +12321,7 @@ function grantedMedia(stream) {
   }
 
   function signalAnswer(answer) {
-    client.gotAnswer = truevideo
-    video
-    video
+    client.gotAnswer = true
     const peer = client.peer
     peer.signal(answer)
   }
