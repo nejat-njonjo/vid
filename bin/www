@@ -26,13 +26,29 @@ const io = require('socket.io')(server)
 let clients = 0
 
 io.on('connection', socket => {
-  socket.on('sen', data => {
-    console.log(data)
+  socket.on('newClient', () => {
+    if (clients < 2) {
+      if (clients === 1) {
+        socket.emit('createPeer')
+      }
+    } else {
+      socket.emit('sessionActive')
+      clients++
+    }
+  })
 
-    socket.broadcast.emit('much', {
-      name: 'NodeJS',
-      app: 'Video'
-    })
+  socket.on('offer', offer => {
+    socket.broadcast.emit('backOffer', offer)
+  })
+
+  socket.on('answer', offer => {
+    socket.broadcast.emit('backAnswer', offer)
+  })
+
+  socket.on('disconnect', () => {
+    if (clients > 0) {
+      clients--
+    }
   })
 })
 
