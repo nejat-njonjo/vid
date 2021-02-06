@@ -7,6 +7,14 @@ const config = require('./config')
 
 const app = express();
 
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+    optionsSuccessStatus: 200
+  })
+);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
